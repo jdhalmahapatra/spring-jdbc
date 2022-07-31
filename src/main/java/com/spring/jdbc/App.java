@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -21,18 +22,21 @@ public class App
     {
     	
     	//Spring jdbc =>  JdbcTemplate
-        ApplicationContext context = 
-        		new ClassPathXmlApplicationContext("com/spring/jdbc/config.xml"); 
+    	//As we are moving to No-XML Config option, we can't use this below line
+        //ApplicationContext context = new ClassPathXmlApplicationContext("com/spring/jdbc/config.xml");
+    	
+    	ApplicationContext context = new AnnotationConfigApplicationContext(jdbcConfig.class);
+    	
+    	
         
         StudentDao stdDao = context.getBean("stdDaoImpl", StudentDao.class);
         Scanner scanner = new Scanner(System.in);
         
         //1. INSERT: For Inserting new Record
         Student std2 = new Student();
-        
-        std2.setId(69);
-        std2.setName("Sohan");
-        std2.setCity("Pune");
+        std2.setId(79);
+        std2.setName("Lavkeh");
+        std2.setCity("Banaras");
         int result = stdDao.insert(std2);
         
         //2. UPDATE: For Updating new Record
@@ -62,8 +66,11 @@ public class App
         	System.out.println(s);
         }
         
+        scanner.close();
+        //Since we are using AnnotationConfigApplicationContext, we can't use this below line
+        //((ClassPathXmlApplicationContext)context).close();
         
-        ((ClassPathXmlApplicationContext)context).close();
+        ((AnnotationConfigApplicationContext)context).close();
        
     }
 }
