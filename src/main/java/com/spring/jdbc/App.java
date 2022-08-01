@@ -34,9 +34,9 @@ public class App
         
         //1. INSERT: For Inserting new Record
         Student std2 = new Student();
-        std2.setId(79);
-        std2.setName("Lavkeh");
-        std2.setCity("Banaras");
+        std2.setId(80);
+        std2.setName("Byomkesh");
+        std2.setCity("Prayagraj");
         int result = stdDao.insert(std2);
         
         //2. UPDATE: For Updating new Record
